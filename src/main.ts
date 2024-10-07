@@ -14,6 +14,7 @@ button.innerHTML = "test 🅱️";
 app.append(button);
 
 let x = 0;
+let frame_count = 0;
 
 const count = document.createElement("h2");
 count.innerHTML = "Cookie count: ";
@@ -24,9 +25,12 @@ button.addEventListener("click", function () {
   count.innerHTML = "Cookie count: " + x;
 });
 
-const intervalID = setInterval(myCallback, 500);
-console.log(intervalID);
 function myCallback() {
-    x += 1;
-    count.innerHTML = "Cookie count: " + x;  
+  frame_count += 1;
+
+  x += 1/frame_count;
+  count.innerHTML = "Cookie count: " + x;
+
+  requestAnimationFrame(myCallback);
 }
+requestAnimationFrame(myCallback);
