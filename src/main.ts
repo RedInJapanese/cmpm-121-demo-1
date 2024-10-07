@@ -19,9 +19,14 @@ const count = document.createElement("h2");
 count.innerHTML = "Cookie count: ";
 app.append(count);
 
-
-
-button.addEventListener("click", function(){
-    x+=1
-    count.innerHTML = "Cookie count: " + x
+button.addEventListener("click", function () {
+  x += 1;
+  count.innerHTML = "Cookie count: " + x;
 });
+
+const intervalID = setInterval(myCallback, 500);
+console.log(intervalID);
+function myCallback() {
+    x += 1;
+    count.innerHTML = "Cookie count: " + x;  
+}
