@@ -14,7 +14,8 @@ button.innerHTML = "test 🅱️";
 app.append(button);
 
 let x = 0;
-let frame_count = 0;
+let lastTime: number = 0;
+let frames: number = 0;
 
 const count = document.createElement("h2");
 count.innerHTML = "Cookie count: ";
@@ -25,12 +26,23 @@ button.addEventListener("click", function () {
   count.innerHTML = "Cookie count: " + x;
 });
 
-function myCallback() {
-  frame_count += 1;
+function fps(timestamp: number) {
+    if (lastTime) {
+      // Calculate the time difference between frames in milliseconds
+      const deltaTime = timestamp - lastTime;
+  
+      // Calculate FPS
+      frames = 1000 / deltaTime;
+    }
+    
+    lastTime = timestamp;  // Update the last time with the current timestamp
+    
+    if(frames > 0){
+        x += 1 / frames;
+        count.innerHTML = "Cookie count: " + x;
+    }
+    // Request the next animation frame
+    requestAnimationFrame(fps);
+  }
 
-  x += 1/frame_count;
-  count.innerHTML = "Cookie count: " + x;
-
-  requestAnimationFrame(myCallback);
-}
-requestAnimationFrame(myCallback);
+  requestAnimationFrame(fps);
